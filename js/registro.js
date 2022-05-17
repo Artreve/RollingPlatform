@@ -1,15 +1,16 @@
 //LocalStorare debe tener una clave llamado usuario ->array de objetos con los datos de cada usuario registrado
-let usuario = JSON.parse(localStorage.getItem('usuarios')) || []
+let usuarios = JSON.parse(localStorage.getItem('usuarios')) || []
 
 class Usuario{
-    constructor(nombre, email, password){
+    constructor(nombre, email, password,rol='usuarios'){
         this.nombre = nombre;
         this.email = email;
         this.password = password;
+        this.rol = rol;
     }
 }
 
-const registroUsuario = function(){
+const registroUsuario = function(e){
     e.preventDefault();
 
     let nombre = document.getElementById("text_nombre").value;
@@ -21,12 +22,19 @@ const registroUsuario = function(){
     if (password !== password2) {
       return alert("No coinciden las contraseñas");
     }
-  
+    
+    let validar = usuarios.find((user)=>{
+      return user.email === correo;
+    })
+    if (validar){
+      return alert ('El correo ya está registrado, inicie sesión con sus cresendicales')
+    }
+
     usuarios.push(new Usuario(nombre, correo, password));
     localStorage.setItem("usuarios", JSON.stringify(usuarios));
     document.getElementById("formulario").reset();
     alert("Usuario registrado con éxito 😎");
-    document.getElementById("text_nombre").focus();
+    // document.getElementById("text_nombre").focus();
     location.replace("../index.html");
   };
 
