@@ -52,19 +52,21 @@ function agregarCurso(e){
 
 }
 
-const cargarTabla =()=>{
-    
-    cursos.map(function(curso,index){
-        let tr = document.createElement ('tr');
-        let celda = `<th scope="row">${index+1}</th>
+const cargarTabla = () => {
+  tableBody.innerHTML = "";
+
+  cursos.map(function (curso, index) {
+    let tr = document.createElement("tr");
+    let celda = `<th scope="row">${index + 1}</th>
         <td>${curso.titulo}</td>
         <td>${curso.descripcion}</td>
         <td>${curso.mentor}</td>
-        <td>${curso.precio}</td>`
-        tr.innerHTML=celda;
-        tableBody.appendChild(tr);
-    })
-}
+        <td>${curso.precio}</td>`;
+
+    tr.innerHTML = celda;
+    tableBody.appendChild(tr);
+  });
+};
 document.getElementById('formulario').addEventListener('submit',agregarCurso)
 
 
